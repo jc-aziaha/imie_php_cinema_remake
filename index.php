@@ -34,7 +34,7 @@
                             <p><strong>Le/les acteurs</strong> : <?= $film['actors']; ?></p>
                             <hr>
                             <a href="" class="text-dark mx-2"><i class="fa-solid fa-eye"></i></a>
-                            <a href="" class="text-secondary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a title="Modifier le film: <?= $film['name'] ?>" href="edit.php?film_id=<?=$film['id']?>" class="text-secondary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="" class="text-danger mx-2"><i class="fa-solid fa-trash-can"></i></a>
                         </div>
                     <?php endforeach ?>
