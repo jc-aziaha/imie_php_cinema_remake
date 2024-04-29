@@ -193,7 +193,7 @@ session_start();
     $_SESSION['_csrf_token'] = bin2hex(random_bytes(30));
 ?>
 <?php
-    $title = "Modifier ce nouveau film";
+    $title = "Modifier le film : {$film['name']}";
     $description = "Modifier ce film de la liste.";
     $keywords = "imie, php, modification de film";
 ?>

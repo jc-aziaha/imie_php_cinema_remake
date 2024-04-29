@@ -30,14 +30,15 @@
                 <div class="col-md-7 col-lg-5 mx-auto">
                     <?php foreach($films as $film) : ?>
                         <div class="film-card my-3 shadow p-3 border bg-white">
-                            <p><strong>Le nom du film</strong> : <?= $film['name']; ?></p>
-                            <p><strong>Le/les acteurs</strong> : <?= $film['actors']; ?></p>
+                            <p><strong>Le nom du film</strong> : <?= htmlspecialchars($film['name']); ?></p>
+                            <p><strong>Le/les acteurs</strong> : <?= htmlspecialchars($film['actors']); ?></p>
                             <hr>
-                            <a href="" class="text-dark mx-2"><i class="fa-solid fa-eye"></i></a>
-                            <a title="Modifier le film: <?= $film['name'] ?>" href="edit.php?film_id=<?=$film['id']?>" class="text-secondary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#modal_<?=htmlspecialchars($film['id']);?>" href="" class="text-dark mx-2"><i class="fa-solid fa-eye"></i></a>
+
+                            <a title="Modifier le film: <?= htmlspecialchars($film['name']); ?>" href="edit.php?film_id=<?=$film['id']?>" class="text-secondary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a 
-                                onclick="event.preventDefault(); return confirm('Confirmer la supression?') && document.querySelector('#film_delete_form_<?= $film['id']; ?>').submit();" 
-                                title="Supprimer le film: <?= $film['name'] ?>" 
+                                onclick="event.preventDefault(); return confirm('Confirmer la supression?') && document.querySelector('#film_delete_form_<?= htmlspecialchars($film['id']); ?>').submit();" 
+                                title="Supprimer le film: <?= htmlspecialchars($film['name']) ?>" 
                                 href="#" 
                                 class="text-danger mx-2"
                             >
@@ -49,6 +50,25 @@
                                 <input type="hidden" name="_method" value="DELETE">
                             </form>
                         </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal_<?=$film['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel"><?= htmlspecialchars($film['name']) ?></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Acteurs</strong>: <?=htmlspecialchars($film['actors']);?>
+                                    <p><strong>Note</strong>: <?= isset($film['review']) && $film['review'] != '' ? htmlspecialchars($film['review']) : 'non renseignée'; ?>
+                                    <p><strong>Commentaire</strong>: <?= isset($film['comment']) && $film['comment'] != '' ? nl2br(htmlspecialchars($film['comment'])) : 'non renseigné'; ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                     <?php endforeach ?>
                 </div>
             </div>
