@@ -35,7 +35,19 @@
                             <hr>
                             <a href="" class="text-dark mx-2"><i class="fa-solid fa-eye"></i></a>
                             <a title="Modifier le film: <?= $film['name'] ?>" href="edit.php?film_id=<?=$film['id']?>" class="text-secondary mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="" class="text-danger mx-2"><i class="fa-solid fa-trash-can"></i></a>
+                            <a 
+                                onclick="event.preventDefault(); return confirm('Confirmer la supression?') && document.querySelector('#film_delete_form_<?= $film['id']; ?>').submit();" 
+                                title="Supprimer le film: <?= $film['name'] ?>" 
+                                href="#" 
+                                class="text-danger mx-2"
+                            >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                            <form action="delete.php?film_id=<?=$film['id']?>" method="post" class="d-none" id="film_delete_form_<?= $film['id']; ?>">
+                                <input type="hidden" name="_csrf_token" value="<?= $_SESSION['_csrf_token']; ?>">
+                                <input type="hidden" name="_honey_pot" value="">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
                         </div>
                     <?php endforeach ?>
                 </div>
